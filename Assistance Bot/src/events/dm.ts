@@ -112,7 +112,8 @@ export default class DmEvent extends BaseEvent {
       await ticketChannel.send(
         `> 👤 | **${message.author.tag}'s** ticket. \n > 💬 | Message: \`\`\`${message.content}\`\`\` \n > ❓ | To send a reply, send your message here. \n :mailbox_with_no_mail: | If you want to close the ticket, use \`${prefix}close\`. \n > Use \`${prefix}transfer <user name/id/mention/tag>\` to transfer this ticket.`
       );
-      channel.send(`> :bust_in_silhouette:  | Your case has been claimed by **${message.member.displayName}** (<@${claimer.id}>). You will receive a response shortly.`);
+      const member = guild.members.cache.get(claimer.id) || await guild.members.fetch(claimer.id);
+      channel.send(`> :bust_in_silhouette:  | Your case has been claimed by **${member.nickname || member.username}** (<@${claimer.id}>). You will receive a response shortly.`);
     } catch (e) {
       console.log(e);
     }
