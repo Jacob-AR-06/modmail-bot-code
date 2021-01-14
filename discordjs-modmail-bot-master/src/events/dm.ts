@@ -129,7 +129,11 @@ export default class DmEvent extends BaseEvent {
         `> 👤 | **${message.author.tag}'s** ticket. \n > 💬 | Message: \`\`\`${message.content}\`\`\` \n > ❓ | To send a reply, send your message here. \n :mailbox_with_no_mail: | If you want to close the ticket, use \`${prefix}close\`. \n > Use \`${prefix}transfer <user name/id/mention/tag>\` to transfer this ticket.`
       );
       const member = guild.members.cache.get(claimer.id) || await guild.members.fetch(claimer.id);
+<<<<<<< HEAD:discordjs-modmail-bot-master/src/events/dm.ts
       channel.send(`> :bust_in_silhouette:  | Your case has been claimed by **${member.nickname}** (<@${claimer.id}>). You will receive a response shortly.`);
+=======
+      channel.send(`> :bust_in_silhouette:  | Your case has been claimed by **${member.nickname || member.username}** (<@${claimer.id}>). You will receive a response shortly.`);
+>>>>>>> 1fe92f4f754a8d2da4a8183784af33ce0c5fd91d:Assistance Bot/src/events/dm.ts
     } catch (e) {
       console.log(e);
     }
