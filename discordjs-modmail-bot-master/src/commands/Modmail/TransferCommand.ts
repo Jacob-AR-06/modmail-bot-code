@@ -17,10 +17,10 @@ export default class CloseCommand extends BaseCommand {
       || message.guild.members.cache.find(m => m.user.username === (args[0] || '')).user
       || message.guild.members.cache.find(m => m.user.tag === (args[0] || '')).user
     } catch (e) {
-      return message.channel.send(`> ❌ | Error. \n \`No one was tagged. The ticket could not be transferred.\` \n > 💁‍♂️ | Remember to get the user's ID and lay it out like this: \`<@[id here>\``);
+      return message.channel.send(`> <:Error:799329110463610940> | Error. \n \`No one was tagged. The ticket could not be transferred.\` \n > 💁‍♂️ | Remember to get the user's ID and lay it out like this: \`<@[id here>\``);
     }
 
-    if (!user) return message.channel.send(`> ❌ | Error. \n \`No one was tagged. The ticket could not be transferred.\` \n > 💁‍♂️ | Remember to get the user's ID and lay it out like this: \`<@[id here>\``);
+    if (!user) return message.channel.send(`> <:Error:799329110463610940> | Error. \n \`No one was tagged. The ticket could not be transferred.\` \n > 💁‍♂️ | Remember to get the user's ID and lay it out like this: \`<@[id here>\``);
 
     const dm = await user.createDM();
     const channel: TextChannel = message.channel as TextChannel;
@@ -50,7 +50,7 @@ export default class CloseCommand extends BaseCommand {
             return opener.send(`> 📨 | Your ticket has been transferred to **<@${claimer.id}>**.`);
           case '❌':
             if (!channel) return;
-            await message.author.send(`> ❌ | Could not transfer the ticket \n \`The user who you tried to transfer the ticket to denied your request.\``);
+            await message.author.send(`> <:Error:799329110463610940> | Could not transfer the ticket \n \`The user who you tried to transfer the ticket to denied your request.\``);
             return dm.send(`> <:Success:797140929374715984> | Successfully denied ticket transfer.`);
         }
 
