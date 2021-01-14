@@ -23,13 +23,15 @@ export default class DmEvent extends BaseEvent {
 
     try {
       const filter = (reaction: MessageReaction, user: User) => {
-        return ['1️⃣', '2️⃣', '3️⃣', '4️⃣'].includes(reaction.emoji.name) && !user.bot;
+        return ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣'].includes(reaction.emoji.name) && !user.bot;
       };
-      const m = await channel.send(`> ✅ | Your case has been registered successfully. You need to now select the department you wish your ticket to go to: \n \n > 1️⃣ - Driving Department <:PER_Driver:798248404518043714> \n > 2️⃣ - Dispatcher Department <:Dispatch_Logo:797067270874333194> \n > 3️⃣ - Guard Department <:PER_Guard:798248404806795305> \n **or** \n > 4️⃣ - Report a player (People Relations Department) \n \n > 💡 | React above to choose your department.`);
+      const m = await channel.send(`✅ | Your case has been registered successfully. You need to now select the department you wish your ticket to go to: \n \n > 1️⃣ - Driving Department <:PER_Driver:798248404518043714> \n > 2️⃣ - Dispatcher Department <:Dispatch_Logo:797067270874333194> \n > 3️⃣ - Guard Department <:PER_Guard:798248404806795305>  \n > 4️⃣ - Report a player (People Relations Department) \n > 5️⃣ - Any Department \n \n  💡 | React above to choose your department.`);
       await m.react('1️⃣');
       await m.react('2️⃣');
       await m.react('3️⃣');
       await m.react('4️⃣');
+      await m.react('5️⃣');
+
       m.awaitReactions(filter, { max: 1, time: 864e5, errors: ['time'] })
       .then(async collected => {
         switch (collected.first().emoji.name) {
@@ -57,6 +59,11 @@ export default class DmEvent extends BaseEvent {
             await channel.send('> ✅ | Successfully bound your case to \`People Relations Department\`');
             await ticketClaimChannel.send('💡 | The ticket has been bound for \`People Relations Department\`');
             break;
+          case '5️⃣':
+            if (!channel) return;
+            await m.edit('📝 | You selected: \`Any Department\`');
+            await channel.send('> ✅ | Successfully bound your case to \`Any Department\`');
+            await ticketClaimChannel.send('💡 | The ticket has been bound for \`Any Department\`');
       } } )
       }  catch (e) { if (e) return; }
 
