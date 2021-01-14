@@ -17,26 +17,42 @@ export default class DmEvent extends BaseEvent {
 
     const ticketClaimChannel: TextChannel = guild.channels.cache.get(process.env.TICKET_LOGS) as TextChannel;
     const msgs = await ticketClaimChannel.messages.fetch();
-    if (msgs.filter(m => m.content.includes(`👤  | User: **${message.author.tag}**`)).size) return channel.send(
+    if (msgs.filter(m => m.content.includes(`🎫 | A new ticket has been opened by ${message.author.tag}`)).size) return channel.send(
       `> ❌ | Chill mate... A ticket has already been created fo your.`
     );
 
     try {
       const filter = (reaction: MessageReaction, user: User) => {
-        return ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '✅'].includes(reaction.emoji.name) && !user.bot;
+        return ['1️⃣', '2️⃣', '3️⃣', '4️⃣'].includes(reaction.emoji.name) && !user.bot;
       };
-      const m = await channel.send(`> ✅ | Your case has been registered successfully. You need to now select the department you wish your ticket to go to. \n 💡 | React below to choose your department: \n \n > 1️⃣ - Driving Department <:PER_Driver:798248404518043714> \n > 2️⃣ - Dispatcher Department <:Dispatch_Logo:797067270874333194> \n > 3️⃣ - Guard Department <:PER_Guard:798248404806795305> \n > 4️⃣ - Any Department`);
-      await m.react('1️⃣')
-      await m.react('2️⃣')
-      await m.react('3️⃣')
-      await m.react('4️⃣')
+      const m = await channel.send(`> ✅ | Your case has been registered successfully. You need to now select the department you wish your ticket to go to: \n \n > 1️⃣ - Driving Department <:PER_Driver:798248404518043714> \n > 2️⃣ - Dispatcher Department <:Dispatch_Logo:797067270874333194> \n > 3️⃣ - Guard Department <:PER_Guard:798248404806795305> \n **or** \n > 4️⃣ - Report a player (People Relations Department) \n \n > 💡 | React above to choose your department.`);
+      await m.react('1️⃣');
+      await m.react('2️⃣');
+      await m.react('3️⃣');
+      await m.react('4️⃣');
       m.awaitReactions(filter, { max: 1, time: 864e5, errors: ['time'] })
-      .then(collected => {
+      .then(async collected => {
         switch (collected.first().emoji.name) {
           case '1️⃣':
-        m.edit('📝 | You selected: \`Driving Department\`')
-        channel.send('> ✅ | Successfully bound your case to \`Driving Department\`')
-        ticketClaimChannel.send('💡 | The ticket has been bound for \`Driving Department\`')
+            if (!channel) return;
+            await m.edit('📝 | You selected: \`Driving Department\`');
+            await channel.send('> ✅ | Successfully bound your case to \`Driving Department\`');
+            await ticketClaimChannel.send('💡 | The ticket has been bound for \`Driving Department\`');
+          case '2️⃣':
+            if (!channel) return;
+            await m.edit('📝 | You selected: \`Dispatcher Department\`');
+            await channel.send('> ✅ | Successfully bound your case to \`Dispatcher Department\`');
+            await ticketClaimChannel.send('💡 | The ticket has been bound for \`Dispatcher Department\`');
+          case '3️⃣':
+            if (!channel) return;
+            await m.edit('📝 | You selected: \`Guard Department\`');
+            await channel.send('> ✅ | Successfully bound your case to \`Guard Department\`');
+            await ticketClaimChannel.send('💡 | The ticket has been bound for \`Guard Department\`');
+          case '4️⃣':
+            if (!channel) return;
+            await m.edit('📝 | You selected: \`People Relations Department\`');
+            await channel.send('> ✅ | Successfully bound your case to \`People Relations Department\`');
+            await ticketClaimChannel.send('💡 | The ticket has been bound for \`People Relations Department\`');
       } } )
       }  catch (e) { if (e) return; }
 
@@ -46,7 +62,7 @@ export default class DmEvent extends BaseEvent {
       };
 
       const m = await ticketClaimChannel.send(
-        `> 🎫 | A new ticket has been opened by ${message.author.tag} (<@${message.author.id}>): \n 🗞️ | Department: \`UNBOUND\` \n > 💬 | Message: \`\`\`${message.content}\`\`\` \n ⚠️ | **Please do not claim the ticket until a department has been bound.** \n 💡 | Another message will appear once the opener has selected their desired department.`
+        `> 🎫 | A new ticket has been opened by ${message.author.tag} (<@${message.author.id}>): \n > 🗞️ | Department: \`UNBOUND\` \n > 💬 | Message: \`\`\`${message.content}\`\`\` \n > ⚠️ | **Please do not claim the ticket until a department has been bound.** \n > 💡 | Another message will appear once the opener has selected their desired department.`
       );
       await m.react('✅');
       m.awaitReactions(filter, { max: 1, time: 864e5, errors: ['time'] })
@@ -74,7 +90,7 @@ export default class DmEvent extends BaseEvent {
 
     try {
       await channel.send(
-        `> 💬 | **${message.author.tag}**: \`\`\`${message.content || 'No content'}\`\`\` \n > ❓ | To send a reply, send your message here. \n :mailbox_with_no_mail: | If you want to close the ticket, use \`${prefix}close\`. \n > Use \`${prefix}transfer <user name/id/mention/tag>\` to transfer this ticket.`
+        `> 💬 | Reply from **${message.author.tag}**: \`\`\`${message.content || 'No content'}\`\`\` \n > ❓ | To send a reply, send your message here. \n :mailbox_with_no_mail: | If you want to close the ticket, use \`${prefix}close\`. \n > Use \`${prefix}transfer <user name/id/mention/tag>\` to transfer this ticket.`
       , { files });
       message.react('✅')
       return message.channel.send(`> ✅ | Your reply has successfully been sent to <@${claimer.id}>. You will receive a response shortly.`);
@@ -96,7 +112,7 @@ export default class DmEvent extends BaseEvent {
         `> 💬 | Reply from (<@${message.author.id}>): \`\`\`${message.content}\`\`\` \n > ❓ | To send a reply, send your message in this DM.`
       , { files });
       message.react('✅')
-      return ticketChannel.send(`> ✅ | Reply sent to (<@${opener.id}>)`);
+      return ticketChannel.send(`> ✅ | Reply sent to <@${opener.id}>`);
     } catch (e) {
       console.log(e);
     }
@@ -105,14 +121,15 @@ export default class DmEvent extends BaseEvent {
   async handleticket(message: Message, channel: DMChannel, claimer: User, guild: Guild, claimLogMessage: Message) {
     const prefix = process.env.DISCORD_BOT_PREFIX;
     try {
-      const ticketChannel = await guild.channels.create(message.author.tag + '-' + claimer.tag + '-assistance-ticket', { type: 'text', topic: 'DO NOT RENAME THIS CHANNEL' + claimLogMessage.id });
+      const ticketChannel = await guild.channels.create(message.author.id + '-' + claimer.id + '-ticket', { type: 'text', topic: 'DO NOT RENAME THIS CHANNEL' + claimLogMessage.id });
       ticketChannel.updateOverwrite(claimer, { SEND_MESSAGES: true, VIEW_CHANNEL: true, ATTACH_FILES: true });
       ticketChannel.updateOverwrite(guild.me, { SEND_MESSAGES: true, VIEW_CHANNEL: true, ATTACH_FILES: true });
       ticketChannel.updateOverwrite(guild.id, { SEND_MESSAGES: false, VIEW_CHANNEL: false });
       await ticketChannel.send(
         `> 👤 | **${message.author.tag}'s** ticket. \n > 💬 | Message: \`\`\`${message.content}\`\`\` \n > ❓ | To send a reply, send your message here. \n :mailbox_with_no_mail: | If you want to close the ticket, use \`${prefix}close\`. \n > Use \`${prefix}transfer <user name/id/mention/tag>\` to transfer this ticket.`
       );
-      channel.send(`> :bust_in_silhouette:  | Your case has been claimed by **${message.member.displayName}** (<@${claimer.id}>). You will receive a response shortly.`);
+      const member = guild.members.cache.get(claimer.id) || await guild.members.fetch(claimer.id);
+      channel.send(`> :bust_in_silhouette:  | Your case has been claimed by **${member.nickname}** (<@${claimer.id}>). You will receive a response shortly.`);
     } catch (e) {
       console.log(e);
     }

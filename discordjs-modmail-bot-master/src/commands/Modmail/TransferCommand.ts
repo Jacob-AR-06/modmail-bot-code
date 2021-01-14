@@ -17,10 +17,10 @@ export default class CloseCommand extends BaseCommand {
       || message.guild.members.cache.find(m => m.user.username === (args[0] || '')).user
       || message.guild.members.cache.find(m => m.user.tag === (args[0] || '')).user
     } catch (e) {
-      return message.channel.send(`> ❌ | Please provide a username/id to transfer to.`);
+      return message.channel.send(`> ❌ | Error. \n \`No one was tagged. The ticket could not be transferred.\` \n > 💁‍♂️ | Remember to get the user's ID and lay it out like this: \`<@[id here>\``);
     }
 
-    if (!user) return message.channel.send(`> ❌ | Please provide a username/id to transfer to.`);
+    if (!user) return message.channel.send(`> ❌ | Error. \n \`No one was tagged. The ticket could not be transferred.\` \n > 💁‍♂️ | Remember to get the user's ID and lay it out like this: \`<@[id here>\``);
 
     const dm = await user.createDM();
     const channel: TextChannel = message.channel as TextChannel;
@@ -31,11 +31,11 @@ export default class CloseCommand extends BaseCommand {
 
       const opener = await client.users.cache.get(channel.name.slice(0, -26)).createDM();
 
-      const msg = await dm.send(`> 📨 | **${message.author.tag}** has requested to transfer their ticket to you. React with :white_check_mark: to accept it and react with :x: to reject it.`);
+      const msg = await dm.send(`> 📬 | **New Ticket Transfer Request** \n > ${message.author.tag} has requested to make a ticket transfer. \n > ℹ️ | React below to either accept or deny it.`);
       await msg.react('✅');
       await msg.react('❌');
 
-      message.channel.send(`> 📨 | Ticket transfer request successfully sent!`);
+      message.channel.send(`> <:Success:797140929374715984> | Successfully sent ticket transfer request.`);
 
       msg.awaitReactions(filter, { max: 1, time: 864e5, errors: ['time'] })
       .then(async collected => {
@@ -44,13 +44,14 @@ export default class CloseCommand extends BaseCommand {
           case '✅':
             if (!channel) return;
             await channel.setName(`${channel.name.slice(0, -26)}-${claimer.id}-ticket`);
-            dm.send(`> ✅ | The ticket was transferred!`);
-            message.author.send(`> 📨 | The ticket has been transferred to **${claimer.tag}**!`);
-            return opener.send(`> 📨 | Your ticket has been transferred to **${claimer.tag}**!`);
+            await channel.updateOverwrite(claimer, { SEND_MESSAGES: true, VIEW_CHANNEL: true, ATTACH_FILES: true });
+            dm.send(`> <:Success:797140929374715984> | Request accepted. You are now the claimer of the ticket.`);
+            message.author.send(`> <:Success:797140929374715984> | Your ticket was successfully transferred to **${claimer.tag}**!`);
+            return opener.send(`> 📨 | Your ticket has been transferred to **<@${claimer.id}>**.`);
           case '❌':
             if (!channel) return;
-            await message.author.send(`> | ❌ The user you tried to transfer the ticket to has denied your request.`);
-            return dm.send(`> ✅ | You have rejected the request to take over the ticket.`);
+            await message.author.send(`> ❌ | Could not transfer the ticket \n \`The user who you tried to transfer the ticket to denied your request.\``);
+            return dm.send(`> <:Success:797140929374715984> | Successfully denied ticket transfer.`);
         }
 
       })

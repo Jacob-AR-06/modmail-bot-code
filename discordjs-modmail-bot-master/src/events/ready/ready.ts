@@ -6,7 +6,7 @@ export default class ReadyEvent extends BaseEvent {
     super('ready');
   }
   async run (client: DiscordClient) {
-    client.user.setActivity('reading my DMs | DM me for assistance', { type: 'PLAYING' });
-    console.log('Bot has logged in.');
+    client.user.setActivity('with tickets | DM me to contact staff.', { type: 'PLAYING' });
+    console.log('Success. Bot logged in.');
   }
 }

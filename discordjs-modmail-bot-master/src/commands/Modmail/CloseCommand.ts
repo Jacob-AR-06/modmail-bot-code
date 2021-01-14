@@ -18,10 +18,10 @@ export default class CloseCommand extends BaseCommand {
       const msg = (await ticketLogs.messages.fetch({ limit: 100 })).filter(m => m.content.includes(message.author.tag && claimer.tag)).last();
 
       try {
-        await claimer.send(`> <:PER_Logo_Transparent:791008398887223357> | **${message.author.tag} (<@${message.author.id}>**) has the closed the ticket that you claimed.`);
+        await claimer.send(`> ℹ️ | ${message.author.tag} has closed the ticket that you claimed.`);
       } finally {
         msg ? await msg.delete() : '';
-        return channel.delete('> <:PER_Logo_Transparent:791008398887223357> | Ticket closed by' + message.author.tag).catch(e => channel.send('> ❌ | The channel could not be deleted!'));
+        return channel.delete('ticket was closed by' + message.author.tag).catch(e => channel.send('> ❌ | Could not delete the channel!'));
       }
     } else {
       const guild: Guild = client.guilds.cache.get(process.env.GUILD_ID);
@@ -33,10 +33,10 @@ export default class CloseCommand extends BaseCommand {
       const msg = (await ticketLogs.messages.fetch({ limit: 100 })).filter(m => m.content.includes(message.author.tag && opener.tag)).last();
 
       try {
-        await opener.send(`> <:PER_Logo_Transparent:791008398887223357> | The claimer of your inquiry has now closed this ticket. Thank you for getting in touch! :smile: \n > :question: | If you ever need assistance again, feel free to DM me whenever!`);
+        await opener.send(`> 🔐 | Your ticket has now been closed, thanks for getting in touch! \n > 🤷‍♂️ | Need assistance again? Feel free to DM me whenever, we're always happy to help! `);
       } finally {
         msg ? await msg.delete() : '';
-        channel.delete('> :ticket: | Ticket closed by' + message.author.tag).catch(e => channel.send('> ❌ | The channel could not be deleted.'));
+        channel.delete('ticket was closed by' + message.author.tag).catch(e => channel.send('> ❌ | Could not delete the channel!'));
       }
     }
   }
