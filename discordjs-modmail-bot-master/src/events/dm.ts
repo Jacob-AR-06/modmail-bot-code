@@ -38,21 +38,25 @@ export default class DmEvent extends BaseEvent {
             await m.edit('📝 | You selected: \`Driving Department\`');
             await channel.send('> ✅ | Successfully bound your case to \`Driving Department\`');
             await ticketClaimChannel.send('💡 | The ticket has been bound for \`Driving Department\`');
+            break;
           case '2️⃣':
             if (!channel) return;
             await m.edit('📝 | You selected: \`Dispatcher Department\`');
             await channel.send('> ✅ | Successfully bound your case to \`Dispatcher Department\`');
             await ticketClaimChannel.send('💡 | The ticket has been bound for \`Dispatcher Department\`');
+            break;
           case '3️⃣':
             if (!channel) return;
             await m.edit('📝 | You selected: \`Guard Department\`');
             await channel.send('> ✅ | Successfully bound your case to \`Guard Department\`');
             await ticketClaimChannel.send('💡 | The ticket has been bound for \`Guard Department\`');
+            break;
           case '4️⃣':
             if (!channel) return;
             await m.edit('📝 | You selected: \`People Relations Department\`');
             await channel.send('> ✅ | Successfully bound your case to \`People Relations Department\`');
             await ticketClaimChannel.send('💡 | The ticket has been bound for \`People Relations Department\`');
+            break;
       } } )
       }  catch (e) { if (e) return; }
 
@@ -129,11 +133,8 @@ export default class DmEvent extends BaseEvent {
         `> 👤 | **${message.author.tag}'s** ticket. \n > 💬 | Message: \`\`\`${message.content}\`\`\` \n > ❓ | To send a reply, send your message here. \n :mailbox_with_no_mail: | If you want to close the ticket, use \`${prefix}close\`. \n > Use \`${prefix}transfer <user name/id/mention/tag>\` to transfer this ticket.`
       );
       const member = guild.members.cache.get(claimer.id) || await guild.members.fetch(claimer.id);
-<<<<<<< HEAD:discordjs-modmail-bot-master/src/events/dm.ts
-      channel.send(`> :bust_in_silhouette:  | Your case has been claimed by **${member.nickname}** (<@${claimer.id}>). You will receive a response shortly.`);
-=======
-      channel.send(`> :bust_in_silhouette:  | Your case has been claimed by **${member.nickname || member.username}** (<@${claimer.id}>). You will receive a response shortly.`);
->>>>>>> 1fe92f4f754a8d2da4a8183784af33ce0c5fd91d:Assistance Bot/src/events/dm.ts
+
+      channel.send(`> :bust_in_silhouette:  | Your case has been claimed by **${member.nickname}** (<@${claimer.id}>). You will receive a response shortly.`)
     } catch (e) {
       console.log(e);
     }
