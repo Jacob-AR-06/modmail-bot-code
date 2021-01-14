@@ -21,7 +21,7 @@ export default class CloseCommand extends BaseCommand {
         await claimer.send(`> ℹ️ | ${message.author.tag} has closed the ticket that you claimed.`);
       } finally {
         msg ? await msg.delete() : '';
-        return channel.delete('ticket was closed by' + message.author.tag).catch(e => channel.send('> ❌ | Could not delete the channel!'));
+        return channel.delete('ticket was closed by' + message.author.tag).catch(e => channel.send('> <:Error:799329110463610940> | Could not delete the channel!'));
       }
     } else {
       const guild: Guild = client.guilds.cache.get(process.env.GUILD_ID);
@@ -36,7 +36,7 @@ export default class CloseCommand extends BaseCommand {
         await opener.send(`> 🔐 | Your ticket has now been closed, thanks for getting in touch! \n > 🤷‍♂️ | Need assistance again? Feel free to DM me whenever, we're always happy to help! `);
       } finally {
         msg ? await msg.delete() : '';
-        channel.delete('ticket was closed by' + message.author.tag).catch(e => channel.send('> ❌ | Could not delete the channel!'));
+        channel.delete('ticket was closed by' + message.author.tag).catch(e => channel.send('> <:Error:799329110463610940> | Could not delete the channel!'));
       }
     }
   }

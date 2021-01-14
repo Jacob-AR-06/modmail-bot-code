@@ -25,7 +25,7 @@ export default class DmEvent extends BaseEvent {
       const filter = (reaction: MessageReaction, user: User) => {
         return ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣'].includes(reaction.emoji.name) && !user.bot;
       };
-      const m = await channel.send(`✅ | Your case has been registered successfully. You need to now select the department you wish your ticket to go to: \n \n > 1️⃣ - Driving Department <:PER_Driver:798248404518043714> \n > 2️⃣ - Dispatcher Department <:Dispatch_Logo:797067270874333194> \n > 3️⃣ - Guard Department <:PER_Guard:798248404806795305>  \n > 4️⃣ - Report a player (People Relations Department) \n > 5️⃣ - Any Department \n \n  💡 | React above to choose your department.`);
+      const m = await channel.send(`> <:Success:797140929374715984> | Your case has been registered successfully. You need to now select the department you wish your ticket to go to: \n \n > 1️⃣ - Driving Department <:PER_Driver:798248404518043714> \n > 2️⃣ - Dispatcher Department <:Dispatch_Logo:797067270874333194> \n > 3️⃣ - Guard Department <:PER_Guard:798248404806795305>  \n > 4️⃣ - Report a player (People Relations Department) \n > 5️⃣ - Any Department \n \n  💡 | React above to choose your department.`);
       await m.react('1️⃣');
       await m.react('2️⃣');
       await m.react('3️⃣');
@@ -38,31 +38,31 @@ export default class DmEvent extends BaseEvent {
           case '1️⃣':
             if (!channel) return;
             await m.edit('📝 | You selected: \`Driving Department\`');
-            await channel.send('> ✅ | Successfully bound your case to \`Driving Department\`');
+            await channel.send('> <:Success:797140929374715984> | Successfully bound your case to \`Driving Department\`');
             await ticketClaimChannel.send('💡 | The ticket has been bound for \`Driving Department\`');
             break;
           case '2️⃣':
             if (!channel) return;
             await m.edit('📝 | You selected: \`Dispatcher Department\`');
-            await channel.send('> ✅ | Successfully bound your case to \`Dispatcher Department\`');
+            await channel.send('> <:Success:797140929374715984> | Successfully bound your case to \`Dispatcher Department\`');
             await ticketClaimChannel.send('💡 | The ticket has been bound for \`Dispatcher Department\`');
             break;
           case '3️⃣':
             if (!channel) return;
             await m.edit('📝 | You selected: \`Guard Department\`');
-            await channel.send('> ✅ | Successfully bound your case to \`Guard Department\`');
+            await channel.send('> <:Success:797140929374715984> | Successfully bound your case to \`Guard Department\`');
             await ticketClaimChannel.send('💡 | The ticket has been bound for \`Guard Department\`');
             break;
           case '4️⃣':
             if (!channel) return;
             await m.edit('📝 | You selected: \`People Relations Department\`');
-            await channel.send('> ✅ | Successfully bound your case to \`People Relations Department\`');
+            await channel.send('> <:Success:797140929374715984> | Successfully bound your case to \`People Relations Department\`');
             await ticketClaimChannel.send('💡 | The ticket has been bound for \`People Relations Department\`');
             break;
           case '5️⃣':
             if (!channel) return;
             await m.edit('📝 | You selected: \`Any Department\`');
-            await channel.send('> ✅ | Successfully bound your case to \`Any Department\`');
+            await channel.send('> <:Success:797140929374715984> | Successfully bound your case to \`Any Department\`');
             await ticketClaimChannel.send('💡 | The ticket has been bound for \`Any Department\`');
             break;
       } } )
@@ -85,7 +85,7 @@ export default class DmEvent extends BaseEvent {
         return this.handleticket(message, channel, claimer, guild, claimMsg);
       })
       .catch(collected => {
-        return channel.send(`> ❌ | Your ticket request timed out. Please open a new one and we will try and get back to you.`);
+        return channel.send(`> <:Error:799329110463610940> | Your ticket request timed out. Please open a new one and we will try and get back to you.`);
       });
     } catch (e) {
       console.log(e);
@@ -105,7 +105,7 @@ export default class DmEvent extends BaseEvent {
         `> 💬 | Reply from **${message.author.tag}**: \`\`\`${message.content || 'No content'}\`\`\` \n > ❓ | To send a reply, send your message here. \n :mailbox_with_no_mail: | If you want to close the ticket, use \`${prefix}close\`. \n > Use \`${prefix}transfer <user name/id/mention/tag>\` to transfer this ticket.`
       , { files });
       message.react('✅')
-      return message.channel.send(`> ✅ | Your reply has successfully been sent to <@${claimer.id}>. You will receive a response shortly.`);
+      return message.channel.send(`> <:Success:797140929374715984> | Your reply has successfully been sent to <@${claimer.id}>. You will receive a response shortly.`);
     } catch (e) {
       console.log(e);
     }
@@ -124,7 +124,7 @@ export default class DmEvent extends BaseEvent {
         `> 💬 | Reply from <@${message.author.id}>: \`\`\`${message.content}\`\`\` \n > ❓ | To send a reply, send your message in this DM.`
       , { files });
       message.react('✅')
-      return ticketChannel.send(`> ✅ | Reply sent to <@${opener.id}>`);
+      return ticketChannel.send(`> <:Success:797140929374715984> | Reply sent to <@${opener.id}>`);
     } catch (e) {
       console.log(e);
     }
