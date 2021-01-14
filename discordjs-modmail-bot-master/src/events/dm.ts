@@ -64,6 +64,7 @@ export default class DmEvent extends BaseEvent {
             await m.edit('📝 | You selected: \`Any Department\`');
             await channel.send('> ✅ | Successfully bound your case to \`Any Department\`');
             await ticketClaimChannel.send('💡 | The ticket has been bound for \`Any Department\`');
+            break;
       } } )
       }  catch (e) { if (e) return; }
 
@@ -120,7 +121,7 @@ export default class DmEvent extends BaseEvent {
     const files = this.getUrls(message.attachments);
     try {
       await channel.send(
-        `> 💬 | Reply from (<@${message.author.id}>): \`\`\`${message.content}\`\`\` \n > ❓ | To send a reply, send your message in this DM.`
+        `> 💬 | Reply from <@${message.author.id}>: \`\`\`${message.content}\`\`\` \n > ❓ | To send a reply, send your message in this DM.`
       , { files });
       message.react('✅')
       return ticketChannel.send(`> ✅ | Reply sent to <@${opener.id}>`);
@@ -141,7 +142,7 @@ export default class DmEvent extends BaseEvent {
       );
       const member = guild.members.cache.get(claimer.id) || await guild.members.fetch(claimer.id);
 
-      channel.send(`> :bust_in_silhouette:  | Your case has been claimed by **${member.nickname}** (<@${claimer.id}>). You will receive a response shortly.`)
+      channel.send(`> 📢 | Your case has been claimed by **${member.nickname}** (<@${claimer.id}>). You will receive a response shortly.`)
     } catch (e) {
       console.log(e);
     }
