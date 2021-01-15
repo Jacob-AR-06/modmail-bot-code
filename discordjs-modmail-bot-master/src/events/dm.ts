@@ -102,7 +102,7 @@ export default class DmEvent extends BaseEvent {
 
     try {
       await channel.send(
-        `> 💬 | Reply from **${message.author.tag}**: \`\`\`${message.content || 'No content'}\`\`\` \n > ❓ | To send a reply, send your message here. \n :mailbox_with_no_mail: | If you want to close the ticket, use \`${prefix}close\`. \n > Use \`${prefix}transfer <user name/id/mention/tag>\` to transfer this ticket.`
+        `> 💬 | Reply from **${message.author.tag}**: \`\`\`${message.content || 'No content'}\`\`\` \n > ❓ | To send a reply, send your message here. \n > :mailbox_with_no_mail: | If you want to close the ticket, use \`${prefix}close\`. \n > Use \`${prefix}transfer <user name/id/mention/tag>\` to transfer this ticket.`
       , { files });
       message.react('✅')
       return message.channel.send(`> <:Success:797140929374715984> | Your reply has successfully been sent to <@${claimer.id}>. You will receive a response shortly.`);
