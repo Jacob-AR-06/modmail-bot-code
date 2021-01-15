@@ -25,7 +25,7 @@ export default class DmEvent extends BaseEvent {
       const filter = (reaction: MessageReaction, user: User) => {
         return ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣'].includes(reaction.emoji.name) && !user.bot;
       };
-      const m = await channel.send(`> <:Success:797140929374715984> | Your case has been registered successfully. You need to now select the department you wish your ticket to go to: \n \n > 1️⃣ - Driving Department <:PER_Driver:798248404518043714> \n > 2️⃣ - Dispatcher Department <:Dispatch_Logo:797067270874333194> \n > 3️⃣ - Guard Department <:PER_Guard:798248404806795305>  \n > 4️⃣ - Report a player (People Relations Department) \n > 5️⃣ - Any Department \n \n  💡 | React above to choose your department.`);
+      const m = await channel.send(`> <:Success:797140929374715984> | Your case has been registered successfully. You need to now select the department you wish your ticket to go to: \n > 💡 | React to choose your department \n \n > 1️⃣ - Driving Department <:PER_Driver:798248404518043714> \n > 2️⃣ - Dispatcher Department <:Dispatch_Logo:797067270874333194> \n > 3️⃣ - Guard Department <:PER_Guard:798248404806795305>  \n > 4️⃣ - Report a player (People Relations Department) \n > 5️⃣ - Any Department `);
       await m.react('1️⃣');
       await m.react('2️⃣');
       await m.react('3️⃣');
@@ -138,7 +138,7 @@ export default class DmEvent extends BaseEvent {
       ticketChannel.updateOverwrite(guild.me, { SEND_MESSAGES: true, VIEW_CHANNEL: true, ATTACH_FILES: true });
       ticketChannel.updateOverwrite(guild.id, { SEND_MESSAGES: false, VIEW_CHANNEL: false });
       await ticketChannel.send(
-        `> 👤 | **${message.author.tag}'s** ticket. \n > 💬 | Message: \`\`\`${message.content}\`\`\` \n > ❓ | To send a reply, send your message here. \n :mailbox_with_no_mail: | If you want to close the ticket, use \`${prefix}close\`. \n > Use \`${prefix}transfer <user name/id/mention/tag>\` to transfer this ticket.`
+        `> 👤 | **${message.author.tag}'s** ticket. \n > 💬 | Message: \`\`\`${message.content}\`\`\` \n > ❓ | To send a reply, send your message here. \n > :mailbox_with_no_mail: | If you want to close the ticket, use \`${prefix}close\`. \n > Use \`${prefix}transfer <user name/id/mention/tag>\` to transfer this ticket.`
       );
       const member = guild.members.cache.get(claimer.id) || await guild.members.fetch(claimer.id);
 
