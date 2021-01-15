@@ -17,10 +17,10 @@ export default class CloseCommand extends BaseCommand {
       || message.guild.members.cache.find(m => m.user.username === (args[0] || '')).user
       || message.guild.members.cache.find(m => m.user.tag === (args[0] || '')).user
     } catch (e) {
-      return message.channel.send(`> <:Error:799329110463610940> | Error. \n \`No one was tagged. The ticket could not be transferred.\` \n > 💁‍♂️ | Remember to get the user's ID and lay it out like this: \`<@[id here>]\``);
+      return message.channel.send(`> <:Error:799329110463610940> | Error. \n \`No one was tagged. The ticket could not be transferred.\` \n > 💁‍♂️ | Remember to get the user's ID and lay it out like this: \`<@[id here]>\``);
     }
 
-    if (!user) return message.channel.send(`> <:Error:799329110463610940> | Error. \n \`No one was tagged. The ticket could not be transferred.\` \n > 💁‍♂️ | Remember to get the user's ID and lay it out like this: \`<@[id here>]\``);
+    if (!user) return message.channel.send(`> <:Error:799329110463610940> | Error. \n \`No one was tagged. The ticket could not be transferred.\` \n > 💁‍♂️ | Remember to get the user's ID and lay it out like this: \`<@[id here]>\``);
 
     const dm = await user.createDM();
     const channel: TextChannel = message.channel as TextChannel;
