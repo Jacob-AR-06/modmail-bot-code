@@ -102,7 +102,7 @@ export default class DmEvent extends BaseEvent {
 
     try {
       await channel.send(
-        `> 💬 | Reply from **${message.author.tag}**: \`\`\`${message.content || 'No content'}\`\`\` \n > ❓ | To send a reply, send your message here. \n > :mailbox_with_no_mail: | If you want to close the ticket, use \`${prefix}close\`. \n > Use \`${prefix}transfer <user name/id/mention/tag>\` to transfer this ticket.`
+        `> 💬 | Reply from <@${message.author.id}>: \`\`\`${message.content || 'No content'}\`\`\` \n > ❓ | To send a reply, send your message here. \n > :mailbox_with_no_mail: | If you want to close the ticket, use \`${prefix}close\`. \n > Use \`${prefix}transfer <user name/id/mention/tag>\` to transfer this ticket.`
       , { files });
       message.react('✅')
       return message.channel.send(`> <:Success:797140929374715984> | Your reply has successfully been sent to <@${claimer.id}>. You will receive a response shortly.`);
@@ -138,7 +138,7 @@ export default class DmEvent extends BaseEvent {
       ticketChannel.updateOverwrite(guild.me, { SEND_MESSAGES: true, VIEW_CHANNEL: true, ATTACH_FILES: true });
       ticketChannel.updateOverwrite(guild.id, { SEND_MESSAGES: false, VIEW_CHANNEL: false });
       await ticketChannel.send(
-        `> 👤 | **${message.author.tag}'s** ticket. \n > 💬 | Message: \`\`\`${message.content}\`\`\` \n > ❓ | To send a reply, send your message here. \n > :mailbox_with_no_mail: | If you want to close the ticket, use \`${prefix}close\`. \n > Use \`${prefix}transfer <user name/id/mention/tag>\` to transfer this ticket.`
+        `> 👤 | <@${message.author.id}>'s ticket. \n > 💬 | Message: \`\`\`${message.content}\`\`\` \n > ❓ | To send a reply, send your message here. \n > :mailbox_with_no_mail: | If you want to close the ticket, use \`${prefix}close\`. \n > Use \`${prefix}transfer <user name/id/mention/tag>\` to transfer this ticket.`
       );
       const member = guild.members.cache.get(claimer.id) || await guild.members.fetch(claimer.id);
 
