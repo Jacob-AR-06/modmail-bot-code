@@ -74,7 +74,7 @@ export default class DmEvent extends BaseEvent {
       };
 
       const m = await ticketClaimChannel.send(
-        `> 🎫 | A new ticket has been opened by ${message.author.tag} (<@${message.author.id}>): \n > 🗞️ | Department: \`UNBOUND\` \n > 💬 | Message: \`\`\`${message.content}\`\`\` \n > ⚠️ | **Please do not claim the ticket until a department has been bound.** \n > 💡 | Another message will appear once the opener has selected their desired department.`
+        `> 🎫 | A new ticket has been opened by <@${message.author.id}>: \n > 🗞️ | Department: \`UNBOUND\` \n > 💬 | Message: \`\`\`${message.content}\`\`\` \n > ⚠️ | **Please do not claim the ticket until a department has been bound.** \n > 💡 | Another message will appear once the opener has selected their desired department.`
       );
       await m.react('✅');
       m.awaitReactions(filter, { max: 1, time: 864e5, errors: ['time'] })
