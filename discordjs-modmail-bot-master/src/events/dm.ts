@@ -16,6 +16,11 @@ export default class DmEvent extends BaseEvent {
     if (ticket) return this.ticket(client, message, ticket);
 
     const ticketClaimChannel: TextChannel = guild.channels.cache.get(process.env.TICKET_LOGS) as TextChannel;
+    const qdchannel: TextChannel = guild.channels.cache.get('808268637525114891') as TextChannel;
+    const dschannel: TextChannel = guild.channels.cache.get('808268708362584064') as TextChannel;
+    const gdchannel: TextChannel = guild.channels.cache.get('808268854098657360') as TextChannel;
+    const prcchannel: TextChannel = guild.channels.cache.get('808268964517642260') as TextChannel;
+    const anychannel: TextChannel = guild.channels.cache.get('798997832899231744') as TextChannel;
     const msgs = await ticketClaimChannel.messages.fetch();
     if (msgs.filter(m => m.content.includes(`🎫 | A new ticket has been opened by ${message.author.tag}`)).size) return channel.send(
       `> ❌ | Chill mate... A ticket has already been created fo your.`
@@ -23,43 +28,44 @@ export default class DmEvent extends BaseEvent {
 
     try {
       const filter = (reaction: MessageReaction, user: User) => {
-        return ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣'].includes(reaction.emoji.name) && !user.bot;
+        return ['<:TPP_Driver:803332478131503135>', '<:Dispatch_Logo:797067270874333194>', '<:TPP_Guard:798248404806795305>', '<:TPPBot_Assistance:808264680829091911>', '<:TPP:803336087086694431>'].includes(reaction.emoji.name) && !user.bot;
       };
-      const m = await channel.send(`> <:Success:797140929374715984> | Your case has been registered successfully. You need to now select the department you wish your ticket to go to: \n > 💡 | React to choose your department \n \n > 1️⃣ - Driving Department <:TPP_Driver:803332478131503135> \n > 2️⃣ - Dispatcher Department <:Dispatch_Logo:797067270874333194> \n > 3️⃣ - Guard Department <:PER_Guard:798248404806795305>  \n > 4️⃣ - Report a player (People Relations Department) \n > 5️⃣ - Any Department `);
-      await m.react('1️⃣');
-      await m.react('2️⃣');
-      await m.react('3️⃣');
-      await m.react('4️⃣');
-      await m.react('5️⃣');
+      const m = await channel.send(`> 📝 | Select a department to continue, react below: \n \n > <:TPP_Driver:803332478131503135> - Driving Department \n > <:Dispatch_Logo:797067270874333194> - Dispatcher Department \n > <:TPP_Guard:798248404806795305> - Guard Department \n > <:TPPBot_Assistance:808264680829091911> - Report a player (People Relations Department) \n > <:TPP:803336087086694431> - Any Department `);
+      await m.react('<:TPP_Driver:803332478131503135>');
+      await m.react('<:Dispatch_Logo:797067270874333194>');
+      await m.react('<:TPP_Guard:798248404806795305>');
+      await m.react('<:TPPBot_Assistance:808264680829091911>');
+      await m.react('<:TPP:803336087086694431>');
 
       m.awaitReactions(filter, { max: 1, time: 864e5, errors: ['time'] })
       .then(async collected => {
         switch (collected.first().emoji.name) {
-          case '1️⃣':
+          case '<:TPP_Driver:803332478131503135>':
             if (!channel) return;
-            await m.edit('📝 | You selected: \`Driving Department\`');
-            await channel.send('> <:Success:797140929374715984> | Successfully bound your case to \`Driving Department\`');
-            await ticketClaimChannel.send('💡 | The ticket has been bound for \`Driving Department\`');
+            await m.edit('📝 | You selected: \`Driver Department\`');
+            await channel.send('> <:Success:797140929374715984> | Successfully bound your case to \`Dispatcher Department\`');
+            await ticketClaimChannel.send('💡 | The ticket has been bound for \`Driver Department\`');
             break;
-          case '2️⃣':
+            break;
+          case '<:Dispatch_Logo:797067270874333194>':
             if (!channel) return;
             await m.edit('📝 | You selected: \`Dispatcher Department\`');
             await channel.send('> <:Success:797140929374715984> | Successfully bound your case to \`Dispatcher Department\`');
             await ticketClaimChannel.send('💡 | The ticket has been bound for \`Dispatcher Department\`');
             break;
-          case '3️⃣':
+          case '<:TPP_Guard:798248404806795305>':
             if (!channel) return;
             await m.edit('📝 | You selected: \`Guard Department\`');
             await channel.send('> <:Success:797140929374715984> | Successfully bound your case to \`Guard Department\`');
             await ticketClaimChannel.send('💡 | The ticket has been bound for \`Guard Department\`');
             break;
-          case '4️⃣':
+          case '<:TPPBot_Assistance:808264680829091911>':
             if (!channel) return;
             await m.edit('📝 | You selected: \`People Relations Department\`');
             await channel.send('> <:Success:797140929374715984> | Successfully bound your case to \`People Relations Department\`');
             await ticketClaimChannel.send('💡 | The ticket has been bound for \`People Relations Department\`');
             break;
-          case '5️⃣':
+          case '<:TPP:803336087086694431>':
             if (!channel) return;
             await m.edit('📝 | You selected: \`Any Department\`');
             await channel.send('> <:Success:797140929374715984> | Successfully bound your case to \`Any Department\`');
@@ -74,14 +80,14 @@ export default class DmEvent extends BaseEvent {
       };
 
       const m = await ticketClaimChannel.send(
-        `> 🎫 | A new ticket has been opened by <@${message.author.id}>: \n > 🗞️ | Department: \`UNBOUND\` \n > 💬 | Message: \`\`\`${message.content}\`\`\` \n > ⚠️ | **Please do not claim the ticket until a department has been bound.** \n > 💡 | Another message will appear once the opener has selected their desired department.`
+        `> <a:latency:801755488202915881> | A ticket is being generated, please wait. \n > DO NOT CLAIM THIS TICKET`
       );
       await m.react('✅');
       m.awaitReactions(filter, { max: 1, time: 864e5, errors: ['time'] })
       .then(collected => {
         const claimer = collected.first().users.cache.last();
         const claimMsg = collected.first().message;
-        claimMsg.delete()
+        claimMsg.edit(`> 📝 | This ticket was claimed by **${claimer.tag}**`)
         return this.handleticket(message, channel, claimer, guild, claimMsg);
       })
       .catch(collected => {
