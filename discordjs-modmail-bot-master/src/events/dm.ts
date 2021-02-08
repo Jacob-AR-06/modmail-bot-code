@@ -133,7 +133,7 @@ export default class DmEvent extends BaseEvent {
   async handleticket(message: Message, channel: DMChannel, claimer: User, guild: Guild, claimLogMessage: Message) {
     const prefix = process.env.DISCORD_BOT_PREFIX;
     try {
-      const ticketChannel = await guild.channels.create(message.author.id + '-' + claimer.id + '-ticket', { type: 'text', topic: 'DO NOT RENAME THIS CHANNEL' + claimLogMessage.id });
+      const ticketChannel = await guild.channels.create(message.author.id + '-' + '-ticket', { type: 'text', topic: 'Please do not rename this channel.' });
       ticketChannel.updateOverwrite(claimer, { SEND_MESSAGES: true, VIEW_CHANNEL: true, ATTACH_FILES: true });
       ticketChannel.updateOverwrite(guild.me, { SEND_MESSAGES: true, VIEW_CHANNEL: true, ATTACH_FILES: true });
       ticketChannel.updateOverwrite(guild.id, { SEND_MESSAGES: false, VIEW_CHANNEL: false });
