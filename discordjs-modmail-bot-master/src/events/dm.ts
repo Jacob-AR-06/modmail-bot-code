@@ -28,48 +28,48 @@ export default class DmEvent extends BaseEvent {
 
     try {
       const filter = (reaction: MessageReaction, user: User) => {
-        return ['<:TPP_Driver:803332478131503135>', '<:Dispatch_Logo:797067270874333194>', '<:TPP_Guard:798248404806795305>', '<:TPPBot_Assistance:808264680829091911>', '<:TPP:803336087086694431>'].includes(reaction.emoji.name) && !user.bot;
+        return ['🚆', '🏏', '👨‍✈️', '❗', '🌐'].includes(reaction.emoji.name) && !user.bot;
       };
-      const m = await channel.send(`> 📝 | Select a department to continue, react below: \n \n > <:TPP_Driver:803332478131503135> - Driving Department \n > <:Dispatch_Logo:797067270874333194> - Dispatcher Department \n > <:TPP_Guard:798248404806795305> - Guard Department \n > <:TPPBot_Assistance:808264680829091911> - Report a player (People Relations Department) \n > <:TPP:803336087086694431> - Any Department `);
-      await m.react('<:TPP_Driver:803332478131503135>');
-      await m.react('<:Dispatch_Logo:797067270874333194>');
-      await m.react('<:TPP_Guard:798248404806795305>');
-      await m.react('<:TPPBot_Assistance:808264680829091911>');
-      await m.react('<:TPP:803336087086694431>');
+      const m = await channel.send(`> 📝 | Select a department to continue, react below: \n \n > 🚆 - Driving Department \n > 🏏 - Dispatcher Department \n > 👨‍✈️ - Guard Department \n > ❗ - Report a player (People Relations Department) \n > 🌐 - Any Department `);
+      await m.react('🚆');
+      await m.react('🏏');
+      await m.react('👨‍✈️');
+      await m.react('❗');
+      await m.react('🌐');
 
       m.awaitReactions(filter, { max: 1, time: 864e5, errors: ['time'] })
       .then(async collected => {
         switch (collected.first().emoji.name) {
-          case '<:TPP_Driver:803332478131503135>':
+          case '🚆':
             if (!channel) return;
-            await m.edit('📝 | You selected: \`Driver Department\`');
-            await channel.send('> <:Success:797140929374715984> | Successfully bound your case to \`Dispatcher Department\`');
-            await ticketClaimChannel.send('💡 | The ticket has been bound for \`Driver Department\`');
+            await m.edit('> 📝 | You selected: \`Driver Department\`');
+            await channel.send('> <:Success:797140929374715984> | Your case has been registered, support will be with you shortly.');
+            await ticketClaimChannel.send('> 💡 | The ticket has been bound for \`Driver Department\`');
             break;
             break;
-          case '<:Dispatch_Logo:797067270874333194>':
+          case '🏏':
             if (!channel) return;
-            await m.edit('📝 | You selected: \`Dispatcher Department\`');
-            await channel.send('> <:Success:797140929374715984> | Successfully bound your case to \`Dispatcher Department\`');
-            await ticketClaimChannel.send('💡 | The ticket has been bound for \`Dispatcher Department\`');
+            await m.edit('> 📝 | You selected: \`Dispatcher Department\`');
+            await channel.send('> <:Success:797140929374715984> | Your case has been registered, support will be with you shortly.');
+            await ticketClaimChannel.send('> 💡 | The ticket has been bound for \`Dispatcher Department\`');
             break;
-          case '<:TPP_Guard:798248404806795305>':
+          case '👨‍✈️':
             if (!channel) return;
-            await m.edit('📝 | You selected: \`Guard Department\`');
-            await channel.send('> <:Success:797140929374715984> | Successfully bound your case to \`Guard Department\`');
-            await ticketClaimChannel.send('💡 | The ticket has been bound for \`Guard Department\`');
+            await m.edit('> 📝 | You selected: \`Guard Department\`');
+            await channel.send('> <:Success:797140929374715984> | Your case has been registered, support will be with you shortly.');
+            await ticketClaimChannel.send('> 💡 | The ticket has been bound for \`Guard Department\`');
             break;
-          case '<:TPPBot_Assistance:808264680829091911>':
+          case '❗':
             if (!channel) return;
             await m.edit('📝 | You selected: \`People Relations Department\`');
-            await channel.send('> <:Success:797140929374715984> | Successfully bound your case to \`People Relations Department\`');
-            await ticketClaimChannel.send('💡 | The ticket has been bound for \`People Relations Department\`');
+            await channel.send('> <:Success:797140929374715984> | Your case has been registered, support will be with you shortly.');
+            await ticketClaimChannel.send('> 💡 | The ticket has been bound for \`People Relations Department\`');
             break;
-          case '<:TPP:803336087086694431>':
+          case '🌐':
             if (!channel) return;
-            await m.edit('📝 | You selected: \`Any Department\`');
-            await channel.send('> <:Success:797140929374715984> | Successfully bound your case to \`Any Department\`');
-            await ticketClaimChannel.send('💡 | The ticket has been bound for \`Any Department\`');
+            await m.edit('> 📝 | You selected: \`Any Department\`');
+            await channel.send('> <:Success:797140929374715984> | Your case has been registered, support will be with you shortly.');
+            await ticketClaimChannel.send('> 💡 | The ticket has been bound for \`Any Department\`');
             break;
       } } )
       }  catch (e) { if (e) return; }
