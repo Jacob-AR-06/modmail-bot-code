@@ -16,11 +16,6 @@ export default class DmEvent extends BaseEvent {
     if (ticket) return this.ticket(client, message, ticket);
 
     const ticketClaimChannel: TextChannel = guild.channels.cache.get(process.env.TICKET_LOGS) as TextChannel;
-    const qdchannel: TextChannel = guild.channels.cache.get('808268637525114891') as TextChannel;
-    const dschannel: TextChannel = guild.channels.cache.get('808268708362584064') as TextChannel;
-    const gdchannel: TextChannel = guild.channels.cache.get('808268854098657360') as TextChannel;
-    const prcchannel: TextChannel = guild.channels.cache.get('808268964517642260') as TextChannel;
-    const anychannel: TextChannel = guild.channels.cache.get('798997832899231744') as TextChannel;
     const msgs = await ticketClaimChannel.messages.fetch();
     if (msgs.filter(m => m.content.includes(`🎫 | A new ticket has been opened by ${message.author.tag}`)).size) return channel.send(
       `> ❌ | Chill mate... A ticket has already been created fo your.`
@@ -80,7 +75,7 @@ export default class DmEvent extends BaseEvent {
       };
 
       const m = await ticketClaimChannel.send(
-        `> <a:latency:801755488202915881> | A ticket is being generated, please wait. \n > DO NOT CLAIM THIS TICKET`
+        `> 🎫 | A new ticket has been opened by **${message.author.tag}** \n > 👤 | Message: \`\`\`${message.content}\`\`\` \n > 📋 | React to claim this`
       );
       await m.react('✅');
       m.awaitReactions(filter, { max: 1, time: 864e5, errors: ['time'] })
